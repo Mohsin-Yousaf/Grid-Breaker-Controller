@@ -1,12 +1,12 @@
 #include "ACS712.h"
 
-int PLC = 8;
+int BreakerState = 5;
 
-int BreakerRemote = 3;
-int BreakerButton = 10;         // the number of the input pin
-int BreakerPin = 6;       // the number of the output pin
+int BreakerRemote = 4;
+int BreakerButton = 3;         // the number of the input pin
+int BreakerPin = 10;       // the number of the output pin
 
-int WarningPin = 9;
+int WarningPin = 12;
 int HighLoad = 13;
 
 int BreakerPinState = LOW;      // the current state of the output pin
@@ -28,7 +28,7 @@ ACS712  ACSc(A2, 5.0, 1023, 185);
 
 void setup()
 {
-  pinMode(PLC, OUTPUT);
+  pinMode(BreakerState, OUTPUT);
 
   pinMode(BreakerRemote, INPUT);
   pinMode(BreakerButton,  INPUT);
@@ -38,7 +38,7 @@ void setup()
   pinMode(HighLoad, OUTPUT);
   
   digitalWrite(HighLoad, LOW);
-  digitalWrite(PLC, LOW);
+  digitalWrite(BreakerState, LOW);
 
   Serial.begin(9200);
   while (!Serial);
@@ -75,7 +75,7 @@ void loop()
 
   }
   digitalWrite(BreakerPin, BreakerPinState);
-  digitalWrite(PLC, BreakerPinState);
+  digitalWrite(BreakerState, BreakerPinState);
 
   BreakerRemoteOldValue = BreakerRemoteCurrentValue;
   BreakerButtonOldValue = BreakerButtonCurrentValue;
